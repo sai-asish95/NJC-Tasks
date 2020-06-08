@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="accountsFlow" doc:id="875fff34-aca2-43dd-bdd5-e970c7b4adfd" >
+		<http:listener doc:name="Listener" doc:id="8f31e185-1db9-4aaf-b775-1a065b2ca917" config-ref="HTTP_Listener_config" path="/sfdc"/>
+		<salesforce:query doc:name="Query" doc:id="0170fa57-4c91-470d-a8dd-d047de892cdf" config-ref="Salesforce_Config" >
+			<salesforce:salesforce-query ><![CDATA[SELECT Name, lastModifiedDate, BillingPostalCode FROM Account]]></salesforce:salesforce-query>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="dd50ebe6-874d-4581-9c6c-170193b45cfe" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4207006a-3a2f-4610-9dbd-62056195c656" />
+	</flow>
+</mule>
