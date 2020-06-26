@@ -1,0 +1,14 @@
+{
+  "flights": [
+    {
+      "airlineName": "????",
+      "price": 2,
+      "departureDate": "????",
+      "planeType": "????",
+      "origin": "????",
+      "code": "????",
+      "emptySeats": 2,
+      "destination": "????"
+    }
+  ]
+}
